@@ -1,3 +1,5 @@
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
+import Navbar from '@/components/Navbar';
 import { ReactNode } from 'react';
 
 type PrivateLayoutProps = Readonly<{
@@ -6,8 +8,9 @@ type PrivateLayoutProps = Readonly<{
 
 export default function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
-    <main>
-      <div>{children}</div>
-    </main>
+    <>
+      <Navbar />
+      <MaxWidthWrapper>{children}</MaxWidthWrapper>
+    </>
   );
 }

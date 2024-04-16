@@ -1,4 +1,4 @@
-import Navbar from '@/components/Navbar';
+import { cn } from '@/utils';
 import { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import { ReactNode } from 'react';
@@ -22,12 +22,14 @@ type RootLayoutProps = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className="light" suppressHydrationWarning>
       <body
-        className={`relative flex min-h-screen flex-col overflow-x-hidden antialiased ${poppins.variable} font-poppins`}
+        className={cn(
+          'relative flex min-h-screen flex-col overflow-x-hidden font-poppins antialiased',
+          poppins.variable,
+        )}
       >
-        <Navbar />
-        <div>{children}</div>
+        {children}
       </body>
     </html>
   );

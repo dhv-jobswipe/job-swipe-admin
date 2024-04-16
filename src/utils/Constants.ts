@@ -3,7 +3,11 @@ export default class Constants {
 
   static COOKIES = {
     ACCESS_TOKEN: 'ACCESS_TOKEN',
+    REFRESH_TOKEN: 'REFRESH_TOKEN',
   };
 
-  static NAVBAR_LINK = ['/management/users', '/management/companies'];
+  static NAVBAR_LINK = [
+    { href: '/users', label: 'User Management' },
+    { href: '/companies', label: 'Company Management' },
+  ];
 }
