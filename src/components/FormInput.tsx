@@ -11,7 +11,7 @@ import { UseFormReturn } from 'react-hook-form';
 
 type FormInputProps = {
   form: UseFormReturn<any, any, undefined>;
-  fieldName: string;
+  name: string;
   label: string;
   placeholder?: string;
   isLoading: boolean;
@@ -20,7 +20,7 @@ type FormInputProps = {
 
 export default function FormInput({
   form,
-  fieldName,
+  name,
   label,
   placeholder,
   isLoading,
@@ -29,7 +29,7 @@ export default function FormInput({
   return (
     <FormField
       control={form.control}
-      name={fieldName}
+      name={name}
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>

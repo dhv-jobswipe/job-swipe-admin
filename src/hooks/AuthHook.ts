@@ -1,3 +1,5 @@
+'use client';
+
 import { authService } from '@/services/authService';
 import Constants from '@/utils/Constants';
 import { zodResolver } from '@hookform/resolvers/zod';

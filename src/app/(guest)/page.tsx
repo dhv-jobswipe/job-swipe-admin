@@ -1,3 +1,5 @@
+'use client';
+
 import FormInput from '@/components/FormInput';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,48 +11,45 @@ import {
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import useAuthHook from '@/hooks/AuthHook';
-import Link from 'next/link';
 
 export default function SignIn() {
   const { form, onSubmit, isLoading } = useAuthHook();
 
   return (
-    <Card className="mx-auto mt-36 w-full max-w-lg">
-      <CardHeader>
-        <CardTitle className="text-center">Sign in</CardTitle>
-      </CardHeader>
+    <div className="flex min-h-screen items-center justify-center">
+      <Card className="mx-auto min-h-fit w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-center">Sign in</CardTitle>
+        </CardHeader>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="space-y-4">
-            <FormInput
-              form={form}
-              fieldName="email"
-              label="Email"
-              placeholder="Email"
-              type="text"
-              isLoading={isLoading}
-            />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <CardContent className="space-y-4">
+              <FormInput
+                form={form}
+                name="email"
+                label="Email"
+                type="text"
+                placeholder="Email"
+                isLoading={isLoading}
+              />
 
-            <FormInput
-              form={form}
-              fieldName="password"
-              label="Password"
-              placeholder="Password"
-              type="password"
-              isLoading={isLoading}
-            />
-          </CardContent>
+              <FormInput
+                form={form}
+                name="password"
+                label="Password"
+                type="password"
+                placeholder="Password"
+                isLoading={isLoading}
+              />
+            </CardContent>
 
-          <CardFooter className="flex flex-row justify-between">
-            <Button variant="link" type="button">
-              <Link href="/">Back to Home</Link>
-            </Button>
-
-            <Button type="submit">Sign in</Button>
-          </CardFooter>
-        </form>
-      </Form>
-    </Card>
+            <CardFooter className="flex items-center justify-end">
+              <Button type="submit">Sign in</Button>
+            </CardFooter>
+          </form>
+        </Form>
+      </Card>
+    </div>
   );
 }
