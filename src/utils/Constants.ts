@@ -3,6 +3,7 @@ export default class Constants {
 
   static COOKIES = {
     ACCESS_TOKEN: 'ACCESS_TOKEN',
+    REFRESH_TOKEN: 'REFRESH_TOKEN',
   };
 
   static NAVBAR_LINK = [
