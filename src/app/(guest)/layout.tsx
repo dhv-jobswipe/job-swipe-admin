@@ -1,5 +1,4 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
-import Navbar from '@/components/Navbar';
 import { ReactNode } from 'react';
 
 type GuestLayoutProps = {
@@ -7,10 +6,5 @@ type GuestLayoutProps = {
 };
 
 export default function GuestLayout({ children }: GuestLayoutProps) {
-  return (
-    <>
-      <Navbar isAuthenticated={false} />
-      <MaxWidthWrapper>{children}</MaxWidthWrapper>
-    </>
-  );
+  return <MaxWidthWrapper>{children}</MaxWidthWrapper>;
 }

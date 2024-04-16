@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,11 +13,7 @@ import Constants from '@/utils/Constants';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
-type NavbarProps = {
-  isAuthenticated: boolean;
-};
-
-export default function Navbar({ isAuthenticated }: NavbarProps) {
+export default function Navbar() {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm">
       <div className="mx-auto w-full max-w-7xl px-4">
@@ -40,36 +35,27 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
             ))}
           </nav>
 
-          {isAuthenticated ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="hover:cursor-pointer">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="avatar"
-                  />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="hover:cursor-pointer">
+                <AvatarImage src="https://github.com/shadcn.png" alt="avatar" />
 
-                  <AvatarFallback>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
+                <AvatarFallback>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="mr-2 w-52">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem className="hover:cursor-pointer">
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Link href="/">
-              <Button size="sm">Sign in</Button>
-            </Link>
-          )}
+            <DropdownMenuContent className="mr-2 w-52">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="hover:cursor-pointer">
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </nav>
