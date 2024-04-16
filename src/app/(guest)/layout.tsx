@@ -2,15 +2,15 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import Navbar from '@/components/Navbar';
 import { ReactNode } from 'react';
 
-type PrivateLayoutProps = Readonly<{
+type GuestLayoutProps = {
   children: ReactNode;
-}>;
+};
 
-export default function PrivateLayout({ children }: PrivateLayoutProps) {
+export default function GuestLayout({ children }: GuestLayoutProps) {
   return (
-    <div>
-      <Navbar isAuthenticated={true} />
+    <>
+      <Navbar isAuthenticated={false} />
       <MaxWidthWrapper>{children}</MaxWidthWrapper>
-    </div>
+    </>
   );
 }

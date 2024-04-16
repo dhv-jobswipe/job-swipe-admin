@@ -5,5 +5,8 @@ export default class Constants {
     ACCESS_TOKEN: 'ACCESS_TOKEN',
   };
 
-  static NAVBAR_LINK = ['/management/users', '/management/companies'];
+  static NAVBAR_LINK = [
+    { href: '/users', label: 'User Management' },
+    { href: '/companies', label: 'Company Management' },
+  ];
 }

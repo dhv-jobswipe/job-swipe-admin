@@ -12,6 +12,10 @@ export default async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
+export const config = {
+  matcher: ['/((?!api|static|.*\\..*|_next).*)'],
+};
+
 function checkPublicRoutes(path: string) {
   for (let idx = 0; idx < Constants.PUBLIC_ROUTES.length; idx++) {
     const pattern = Constants.PUBLIC_ROUTES[idx];
