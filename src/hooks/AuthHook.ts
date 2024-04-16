@@ -7,6 +7,7 @@ import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 export default function useAuthHook() {
@@ -27,24 +28,18 @@ export default function useAuthHook() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues: { email: '', password: '' },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-
     authService
       .login(values.email, values.password)
       .then((response) => {
         setCookie(
           Constants.COOKIES.ACCESS_TOKEN,
           Buffer.from(response.data.access_token).toString('base64'),
-          {
-            maxAge: 60 * 60 * 24,
-          },
+          { maxAge: 60 * 60 * 24 },
         );
         setCookie(
           Constants.COOKIES.REFRESH_TOKEN,
@@ -53,9 +48,13 @@ export default function useAuthHook() {
         );
 
         setIsLoading(false);
+        toast.success('Login successful');
         router.push(Constants.NAVBAR_LINK[0].href);
       })
-      .catch(() => setIsLoading(false));
+      .catch(() => {
+        setIsLoading(false);
+        toast.error("Couldn't login. Please try again.");
+      });
   }
 
   return { form, onSubmit, isLoading };
