@@ -2,6 +2,7 @@ import { cn } from '@/utils';
 import { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import { ReactNode } from 'react';
+import { Toaster } from 'sonner';
 import './globals.css';
 
 const poppins = Poppins({
@@ -29,7 +30,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           poppins.variable,
         )}
       >
-        {children}
+        <>{children}</>
+        <Toaster />
       </body>
     </html>
   );
