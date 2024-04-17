@@ -30,8 +30,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           poppins.variable,
         )}
       >
-        <>{children}</>
-        <Toaster />
+        <div>{children}</div>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );
