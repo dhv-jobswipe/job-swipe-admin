@@ -10,7 +10,7 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
     <div>
       <Navbar />
-      <MaxWidthWrapper>{children}</MaxWidthWrapper>
+      <MaxWidthWrapper className="mt-20">{children}</MaxWidthWrapper>
     </div>
   );
 }

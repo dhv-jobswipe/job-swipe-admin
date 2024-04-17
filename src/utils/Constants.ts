@@ -1,5 +1,5 @@
 export default class Constants {
-  static PUBLIC_ROUTES = ['/'];
+  static PUBLIC_ROUTES = ['/', '/manage/users'];
 
   static COOKIES = {
     ACCESS_TOKEN: 'ACCESS_TOKEN',
@@ -7,7 +7,7 @@ export default class Constants {
   };
 
   static NAVBAR_LINK = [
-    { href: '/users', label: 'User Management' },
-    { href: '/companies', label: 'Company Management' },
+    { href: '/manage/users', label: 'User Management' },
+    { href: '/manage/companies', label: 'Company Management' },
   ];
 }
