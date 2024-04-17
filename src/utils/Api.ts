@@ -1,15 +1,14 @@
-import { isAuthenticated } from '@/utils';
 import Constants from '@/utils/Constants';
+import { getAppCookie } from '@/utils/Cookies';
 import axios, {
   AxiosError,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { getCookie } from 'cookies-next';
 
 function onRequest(config: InternalAxiosRequestConfig) {
-  if (isAuthenticated()) {
-    const accessToken = getCookie(Constants.COOKIES.ACCESS_TOKEN);
+  const accessToken = getAppCookie(Constants.COOKIES.ACCESS_TOKEN, true);
+  if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;

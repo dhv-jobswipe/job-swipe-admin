@@ -2,8 +2,8 @@
 
 import { authService } from '@/services/authService';
 import Constants from '@/utils/Constants';
+import { setAppCookie } from '@/utils/Cookies';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -36,15 +36,15 @@ export default function useAuthHook() {
     authService
       .login(values.email, values.password)
       .then((response) => {
-        setCookie(
+        setAppCookie(
           Constants.COOKIES.ACCESS_TOKEN,
-          Buffer.from(response.data.access_token).toString('base64'),
-          { maxAge: 60 * 60 * 24 },
+          response.data.access_token,
+          true,
         );
-        setCookie(
+        setAppCookie(
           Constants.COOKIES.REFRESH_TOKEN,
-          Buffer.from(response.data.refresh_token).toString('base64'),
-          { maxAge: 60 * 60 * 24 },
+          response.data.refresh_token,
+          true,
         );
 
         setIsLoading(false);
