@@ -2,7 +2,7 @@
 
 import { authService } from '@/services/authService';
 import Constants from '@/utils/Constants';
-import { setAppCookie } from '@/utils/Cookies';
+import { setAppToken } from '@/utils/Cookies';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-export default function useAuthHook() {
+export default function useLoginHook() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -31,31 +31,20 @@ export default function useAuthHook() {
     defaultValues: { email: '', password: '' },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    authService
-      .login(values.email, values.password)
-      .then((response) => {
-        setAppCookie(
-          Constants.COOKIES.ACCESS_TOKEN,
-          response.data.access_token,
-          true,
-        );
-        setAppCookie(
-          Constants.COOKIES.REFRESH_TOKEN,
-          response.data.refresh_token,
-          true,
-        );
 
-        setIsLoading(false);
-        toast.success('Login successful');
-        router.push(Constants.NAVBAR_LINK[0].href);
-      })
-      .catch(() => {
-        setIsLoading(false);
-        toast.error("Couldn't login. Please try again.");
-      });
+    try {
+      const response = await authService.login(values.email, values.password);
+      setAppToken(response.data.access_token, response.data.refresh_token);
+
+      toast.success('Login successful');
+      router.push(Constants.NAVBAR_LINK[0].href);
+    } catch (error) {
+      toast.error("Couldn't login. Please try again.");
+    }
+    setIsLoading(false);
   }
 
-  return { form, onSubmit, isLoading };
+  return { form, isLoading, onSubmit };
 }

@@ -8,9 +8,9 @@ type PrivateLayoutProps = Readonly<{
 
 export default function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
-    <>
+    <div>
       <Navbar />
       <MaxWidthWrapper>{children}</MaxWidthWrapper>
-    </>
+    </div>
   );
 }
