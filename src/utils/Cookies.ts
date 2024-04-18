@@ -6,7 +6,7 @@ export function setAppCookie(
   value: any,
   encrypt: boolean = false,
 ) {
-  const data = encrypt ? Buffer.from(String(value)).toString('base64') : value;
+  const data = encrypt ? value : value;
   setCookie(name, data, { maxAge: 60 * 60 * 24 });
 }
 

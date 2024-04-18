@@ -1,15 +1,29 @@
 import { matchPattern } from '@/utils';
 import Constants from '@/utils/Constants';
-import { getAppCookie } from '@/utils/Cookies';
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export default async function middleware(request: NextRequest) {
   const requestPathname = request.nextUrl.pathname;
-  if (checkPublicRoutes(requestPathname)) return NextResponse.next();
 
-  if (!getAppCookie(Constants.COOKIES.ACCESS_TOKEN, true)) {
-    return NextResponse.redirect(new URL('/', request.url));
+  const isAuthenticated = cookies().get(Constants.COOKIES.ACCESS_TOKEN);
+
+  if (requestPathname === Constants.PUBLIC_ROUTES[0] && isAuthenticated) {
+    return NextResponse.redirect(
+      new URL(Constants.NAVBAR_LINK[0].href, request.url),
+    );
   }
+
+  if (checkPublicRoutes(requestPathname)) {
+    return NextResponse.next();
+  }
+
+  if (!isAuthenticated) {
+    return NextResponse.redirect(
+      new URL(Constants.PUBLIC_ROUTES[0], request.url),
+    );
+  }
+
   return NextResponse.next();
 }
 

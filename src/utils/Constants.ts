@@ -7,7 +7,13 @@ export default class Constants {
   };
 
   static NAVBAR_LINK = [
-    { href: '/users', label: 'User Management' },
-    { href: '/companies', label: 'Company Management' },
+    { href: '/manage/users', label: 'User Management' },
+    { href: '/manage/companies', label: 'Company Management' },
   ];
+
+  static PAGINATION_NUMBER = [10, 20, 30];
+
+  static SYSTEM_ROLE = {
+    USER: 'user',
+  };
 }
