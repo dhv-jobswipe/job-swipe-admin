@@ -12,4 +12,8 @@ export default class Constants {
   ];
 
   static PAGINATION_NUMBER = [10, 20, 30];
+
+  static SYSTEM_ROLE = {
+    USER: 'user',
+  };
 }

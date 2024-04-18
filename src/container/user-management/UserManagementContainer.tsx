@@ -2,6 +2,9 @@
 
 import { UserColumns } from '@/container/user-management/UserColumns';
 import UserDataTable from '@/container/user-management/UserTable';
+import { adminService } from '@/services/adminService';
+import Constants from '@/utils/Constants';
+import { useEffect } from 'react';
 
 export default function UserManagementContainer() {
   // const searchParams = useSearchParams();
@@ -14,6 +17,10 @@ export default function UserManagementContainer() {
     { id: '2', firstName: 'Jane', lastName: 'Doe' },
     { id: '3', firstName: 'Alice', lastName: 'Smith' },
   ];
+
+  useEffect(() => {
+    adminService.get(Constants.SYSTEM_ROLE.USER, 1, 10);
+  }, []);
 
   return (
     <main className="flex flex-col">
