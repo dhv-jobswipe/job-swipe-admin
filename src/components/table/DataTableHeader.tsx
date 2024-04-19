@@ -1,4 +1,9 @@
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { IColumTable } from '@/types/IColumnTable';
 
 type DataTableHeaderProps = {
@@ -9,9 +14,12 @@ export function DataTableHeader({ columns }: DataTableHeaderProps) {
   return (
     <TableHeader>
       <TableRow>
-        {columns.map((column) => (
-          <TableHead key={column.key}>{column.header}</TableHead>
-        ))}
+        <TableCell />
+        {columns
+          .filter((col) => !col.isHide)
+          .map((col) => (
+            <TableHead key={col.key}>{col.header}</TableHead>
+          ))}
       </TableRow>
     </TableHeader>
   );

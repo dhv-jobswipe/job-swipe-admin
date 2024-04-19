@@ -1,10 +1,10 @@
 'use client';
 
+import Loading from '@/components/Loading';
 import { DataTableHeader } from '@/components/table/DataTableHeader';
 import TablePagination from '@/components/table/TablePagination';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import useTableHook from '@/hooks/useTableHook';
-import ThinkingIcon from '@/icons/ThinkingIcon';
 import { IColumTable } from '@/types/IColumnTable';
 import Constants from '@/utils/Constants';
 
@@ -28,16 +28,19 @@ export default function CustomTable({ columnTable }: CustomTableProps) {
             {isLoading ? (
               <TableRow>
                 <TableCell rowSpan={perPage} colSpan={columns.length}>
-                  <ThinkingIcon />
+                  <Loading />
                 </TableCell>
               </TableRow>
             ) : (
               data.map((row, idx) => (
                 <TableRow key={idx}>
+                  <TableCell>
+                    {(paginationMeta.current_page - 1) * perPage + idx + 1}
+                  </TableCell>
                   {columns
                     .filter((col) => !col.isHide)
                     .map((col) => (
-                      <TableCell key={col.key}>{row[col.cell]()}</TableCell>
+                      <TableCell key={col.key}>{col.cell(row)}</TableCell>
                     ))}
                 </TableRow>
               ))
@@ -46,7 +49,9 @@ export default function CustomTable({ columnTable }: CustomTableProps) {
         </Table>
       </div>
 
-      <TablePagination paginationMeta={paginationMeta} pageSize={perPage} />
+      {isLoading || (
+        <TablePagination paginationMeta={paginationMeta} pageSize={perPage} />
+      )}
     </div>
   );
 }
