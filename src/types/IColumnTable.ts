@@ -5,5 +5,6 @@ export type IColumTable = {
   header: string;
   cell: (_row: any) => React.JSX.Element;
 
-  isHide?: boolean;
+  isHide: boolean;
+  enableHiding: boolean;
 };

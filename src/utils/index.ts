@@ -16,19 +16,17 @@ export function matchPattern(link: string, pattern: string) {
   return false;
 }
 
-export function changeKeyInArrayObject(
+export function changeValueInArrayObject(
   arr: any[],
-  key: string,
   value: any,
-  newKey: string,
+  key: string,
+  newValue: any,
 ) {
-  return arr.map((item) => {
-    if (item[key] === value) {
-      return {
-        ...item,
-        [newKey]: value,
-      };
+  let newArrayObject = [...arr];
+  for (let idx = 0; idx < newArrayObject.length; idx++) {
+    if (newArrayObject[idx]['key'] === value) {
+      newArrayObject[idx][key] = newValue;
     }
-    return item;
-  });
+  }
+  return newArrayObject;
 }

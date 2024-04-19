@@ -14,7 +14,7 @@ export function DataTableHeader({ columns }: DataTableHeaderProps) {
   return (
     <TableHeader>
       <TableRow>
-        <TableCell />
+        <TableCell className="sticky left-0 bg-white" />
         {columns
           .filter((col) => !col.isHide)
           .map((col) => (

@@ -1,7 +1,6 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -16,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { PaginationMetaProps } from '@/types/PaginationMetaProps';
 import Constants from '@/utils/Constants';
+import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 type TablePaginationProps = {
@@ -35,68 +35,18 @@ export default function TablePagination({
       <Pagination className="flex-1">
         <PaginationContent>
           <PaginationItem>
+            <PaginationLink href={pathname + `?page=1&per_page=${pageSize}`}>
+              <ChevronsLeft className="h-4 w-4" />
+            </PaginationLink>
+          </PaginationItem>
+
+          <PaginationItem>
             <PaginationPrevious
               href={
                 pathname +
                 `?page=${paginationMeta.previous_page}&per_page=${pageSize}`
               }
-            >
-              Previous
-            </PaginationPrevious>
-          </PaginationItem>
-
-          <PaginationItem>
-            <PaginationLink href={pathname + `?page=1&per_page=${pageSize}`}>
-              1
-            </PaginationLink>
-          </PaginationItem>
-
-          <PaginationEllipsis />
-
-          <PaginationItem>
-            <PaginationLink
-              href={
-                pathname +
-                `?page=${paginationMeta.current_page - 1}&per_page=${pageSize}`
-              }
-            >
-              {paginationMeta.current_page - 1}
-            </PaginationLink>
-          </PaginationItem>
-
-          <PaginationItem>
-            <PaginationLink
-              href={
-                pathname +
-                `?page=${paginationMeta.current_page}&per_page=${pageSize}`
-              }
-            >
-              {paginationMeta.current_page}
-            </PaginationLink>
-          </PaginationItem>
-
-          <PaginationItem>
-            <PaginationLink
-              href={
-                pathname +
-                `?page=${paginationMeta.current_page + 1}&per_page=${pageSize}`
-              }
-            >
-              {paginationMeta.current_page + 1}
-            </PaginationLink>
-          </PaginationItem>
-
-          <PaginationEllipsis />
-
-          <PaginationItem>
-            <PaginationLink
-              href={
-                pathname +
-                `?page=${paginationMeta.total_page}&per_page=${pageSize}`
-              }
-            >
-              {paginationMeta.total_page}
-            </PaginationLink>
+            />
           </PaginationItem>
 
           <PaginationItem>
@@ -105,9 +55,18 @@ export default function TablePagination({
                 pathname +
                 `?page=${paginationMeta.next_page}&per_page=${pageSize}`
               }
+            />
+          </PaginationItem>
+
+          <PaginationItem>
+            <PaginationLink
+              href={
+                pathname +
+                `?page=${paginationMeta.total_page}&per_page=${pageSize}`
+              }
             >
-              Next
-            </PaginationNext>
+              <ChevronsRight className="h-4 w-4" />
+            </PaginationLink>
           </PaginationItem>
         </PaginationContent>
       </Pagination>

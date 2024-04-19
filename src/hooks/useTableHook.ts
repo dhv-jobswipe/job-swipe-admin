@@ -7,7 +7,7 @@ import Constants from '@/utils/Constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function useTableHook(role: string, columns: IColumTable[]) {
+export default function useTableHook(role: string, columnTable: IColumTable[]) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -16,6 +16,8 @@ export default function useTableHook(role: string, columns: IColumTable[]) {
   const perPage = Number(
     searchParams.get('per_page') || Constants.PAGINATION_NUMBER[0],
   );
+
+  const [columns, setColumns] = useState<IColumTable[]>(columnTable);
 
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -70,5 +72,5 @@ export default function useTableHook(role: string, columns: IColumTable[]) {
     });
   }, [page, paginationMeta.total_page, perPage, role]);
 
-  return { columns, data, isLoading, perPage, paginationMeta };
+  return { columns, setColumns, data, isLoading, perPage, paginationMeta };
 }
