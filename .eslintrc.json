@@ -2,6 +2,6 @@
   "extends": ["next/core-web-vitals", "next", "prettier", "eslint:recommended"],
   "rules": {
     "no-console": "error",
-    "no-unused-vars": "error"
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
   }
 }

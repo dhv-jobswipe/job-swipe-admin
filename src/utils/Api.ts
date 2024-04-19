@@ -5,6 +5,8 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import { deleteCookie } from 'cookies-next';
+import { toast } from 'sonner';
 
 function onRequest(config: InternalAxiosRequestConfig) {
   const accessToken = getAppCookie(Constants.COOKIES.ACCESS_TOKEN, true);
@@ -19,6 +21,18 @@ function onResponse(response: AxiosResponse) {
 }
 
 function onResponseError(error: AxiosError) {
+  if (error.code === 'ERR_NETWORK') {
+    toast.error('Server error');
+  }
+  if (
+    error.response &&
+    (error.response.data as any).error.code ===
+      Constants.SERVER_CODE.EXPIRED_TOKEN
+  ) {
+    deleteCookie(Constants.COOKIES.ACCESS_TOKEN);
+    deleteCookie(Constants.COOKIES.REFRESH_TOKEN);
+    toast.error('Token expired');
+  }
   return Promise.reject(error);
 }
 

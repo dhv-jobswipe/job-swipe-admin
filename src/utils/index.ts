@@ -15,3 +15,18 @@ export function matchPattern(link: string, pattern: string) {
   if (match && match[1]) return true;
   return false;
 }
+
+export function changeValueInArrayObject(
+  arr: any[],
+  value: any,
+  key: string,
+  newValue: any,
+) {
+  let newArrayObject = [...arr];
+  for (let idx = 0; idx < newArrayObject.length; idx++) {
+    if (newArrayObject[idx]['key'] === value) {
+      newArrayObject[idx][key] = newValue;
+    }
+  }
+  return newArrayObject;
+}

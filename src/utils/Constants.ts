@@ -16,4 +16,8 @@ export default class Constants {
   static SYSTEM_ROLE = {
     USER: 'user',
   };
+
+  static SERVER_CODE = {
+    EXPIRED_TOKEN: 'ERR_TOK0102',
+  };
 }
