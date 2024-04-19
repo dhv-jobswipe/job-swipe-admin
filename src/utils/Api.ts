@@ -5,6 +5,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import { toast } from 'sonner';
 
 function onRequest(config: InternalAxiosRequestConfig) {
   const accessToken = getAppCookie(Constants.COOKIES.ACCESS_TOKEN, true);
@@ -19,6 +20,9 @@ function onResponse(response: AxiosResponse) {
 }
 
 function onResponseError(error: AxiosError) {
+  if (error.code === 'ERR_NETWORK') {
+    toast.error('Server error');
+  }
   return Promise.reject(error);
 }
 

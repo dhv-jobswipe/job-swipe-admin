@@ -15,3 +15,20 @@ export function matchPattern(link: string, pattern: string) {
   if (match && match[1]) return true;
   return false;
 }
+
+export function changeKeyInArrayObject(
+  arr: any[],
+  key: string,
+  value: any,
+  newKey: string,
+) {
+  return arr.map((item) => {
+    if (item[key] === value) {
+      return {
+        ...item,
+        [newKey]: value,
+      };
+    }
+    return item;
+  });
+}

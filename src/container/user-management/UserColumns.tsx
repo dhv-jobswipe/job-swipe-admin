@@ -1,50 +1,22 @@
 'use client';
 
-import { DataTableColumnHeader } from '@/components/table/DataTableColumnHeader';
-import SelectHeader from '@/components/table/SelectHeader';
-import SelectRow from '@/components/table/SelectRow';
-import { User } from '@/types/User';
-import { ColumnDef } from '@tanstack/react-table';
+import { IColumTable } from '@/types/IColumnTable';
 
-export const UserColumns: ColumnDef<User>[] = [
+export const UserColumns: IColumTable[] = [
   {
-    accessorKey: 'select',
-    header: ({ table }) => <SelectHeader table={table} />,
-    cell: ({ row }) => <SelectRow row={row} />,
-    enableSorting: false,
-    enableHiding: false,
+    key: 'account_id',
+    header: 'ID',
+    cell: (row) => <span>{row.account_id}</span>,
+    isHide: true,
   },
   {
-    accessorKey: 'id',
-    header: () => <div className="text-center">ID</div>,
-    cell: ({ row }) => <div className="text-center">{row.getValue('id')}</div>,
-    enableSorting: false,
-    enableHiding: true,
+    key: 'first_name',
+    header: 'First name',
+    cell: (row) => <span>{row.first_name}</span>,
   },
   {
-    accessorKey: 'firstName',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="First name"
-        enableHiding={false}
-      />
-    ),
-    cell: ({ row }) => <div>{row.getValue('firstName')}</div>,
-    enableSorting: true,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'lastName',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Last name"
-        enableHiding={true}
-      />
-    ),
-    cell: ({ row }) => <div>{row.getValue('lastName')}</div>,
-    enableSorting: true,
-    enableHiding: true,
+    key: 'last_name',
+    header: 'Last name',
+    cell: (row) => <span>{row.last_name}</span>,
   },
 ];

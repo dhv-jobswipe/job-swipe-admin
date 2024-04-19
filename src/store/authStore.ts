@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { create } from 'zustand';
 
 type IUserAuthState = {
@@ -11,7 +10,7 @@ type IAuthState = {
   isAuthenticated: boolean;
   data: IUserAuthState;
 
-  setMe: (account_id: string, email: string) => void;
+  setMe: (_id: string, _email: string) => void;
 };
 
 export const useAuthStore = create<IAuthState>((set) => ({
