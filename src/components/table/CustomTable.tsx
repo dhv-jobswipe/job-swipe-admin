@@ -2,6 +2,7 @@
 
 import Loading from '@/components/Loading';
 import { DataTableHeader } from '@/components/table/DataTableHeader';
+import FixedTable from '@/components/table/FixedTable';
 import TablePagination from '@/components/table/TablePagination';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,13 +26,16 @@ export default function CustomTable({ columnTable }: CustomTableProps) {
   const { columns, setColumns, data, isLoading, perPage, paginationMeta } =
     useTableHook(Constants.SYSTEM_ROLE.USER, columnTable);
 
+  if (isLoading) return <Loading />;
+
   return (
     <div className="flex w-full flex-col space-y-4">
       <div className="flex items-center">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
+              <span>Columns</span>
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
 
@@ -61,40 +65,39 @@ export default function CustomTable({ columnTable }: CustomTableProps) {
         </DropdownMenu>
       </div>
 
-      <div className="w-full overflow-x-auto rounded-md border">
-        <Table>
-          <DataTableHeader columns={columns} />
+      <div className="flex flex-row items-start">
+        <FixedTable
+          page={paginationMeta.current_page}
+          perPage={perPage}
+          columns={columns.filter((col) => col.isFixed)}
+          data={data}
+        />
+
+        <Table className="w-full flex-1 overflow-x-auto border border-l-0">
+          <DataTableHeader
+            columns={columns.filter((col) => !col.isHide && !col.isFixed)}
+          />
 
           <TableBody>
-            {isLoading ? (
-              <TableRow>
-                <TableCell rowSpan={perPage} colSpan={columns.length}>
-                  <Loading />
-                </TableCell>
+            {data.map((row, idx) => (
+              <TableRow key={idx} className="!bg-white odd:!bg-blue-50">
+                {columns
+                  .filter((col) => !col.isHide && !col.isFixed)
+                  .map((col) => (
+                    <TableCell
+                      key={col.key}
+                      className="h-14 min-w-28 text-nowrap"
+                    >
+                      {col.cell(row)}
+                    </TableCell>
+                  ))}
               </TableRow>
-            ) : (
-              data.map((row, idx) => (
-                <TableRow key={idx}>
-                  <TableCell className="sticky left-0 bg-white">
-                    {(paginationMeta.current_page - 1) * perPage + idx + 1}
-                  </TableCell>
-                  {columns
-                    .filter((col) => !col.isHide)
-                    .map((col) => (
-                      <TableCell key={col.key} className="min-w-32 text-nowrap">
-                        {col.cell(row)}
-                      </TableCell>
-                    ))}
-                </TableRow>
-              ))
-            )}
+            ))}
           </TableBody>
         </Table>
       </div>
 
-      {isLoading || (
-        <TablePagination paginationMeta={paginationMeta} pageSize={perPage} />
-      )}
+      <TablePagination paginationMeta={paginationMeta} pageSize={perPage} />
     </div>
   );
 }

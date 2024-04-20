@@ -35,7 +35,10 @@ export default function TablePagination({
       <Pagination className="flex-1">
         <PaginationContent>
           <PaginationItem>
-            <PaginationLink href={pathname + `?page=1&per_page=${pageSize}`}>
+            <PaginationLink
+              href={pathname + `?page=1&per_page=${pageSize}`}
+              isActive={paginationMeta.current_page !== 1}
+            >
               <ChevronsLeft className="h-4 w-4" />
             </PaginationLink>
           </PaginationItem>
@@ -46,6 +49,7 @@ export default function TablePagination({
                 pathname +
                 `?page=${paginationMeta.previous_page}&per_page=${pageSize}`
               }
+              isActive={paginationMeta.current_page !== 1}
             />
           </PaginationItem>
 
@@ -55,6 +59,9 @@ export default function TablePagination({
                 pathname +
                 `?page=${paginationMeta.next_page}&per_page=${pageSize}`
               }
+              isActive={
+                paginationMeta.current_page !== paginationMeta.total_page
+              }
             />
           </PaginationItem>
 
@@ -63,6 +70,9 @@ export default function TablePagination({
               href={
                 pathname +
                 `?page=${paginationMeta.total_page}&per_page=${pageSize}`
+              }
+              isActive={
+                paginationMeta.current_page !== paginationMeta.total_page
               }
             >
               <ChevronsRight className="h-4 w-4" />
