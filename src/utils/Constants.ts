@@ -15,6 +15,7 @@ export default class Constants {
 
   static SYSTEM_ROLE = {
     USER: 'user',
+    COMPANY: 'company',
   };
 
   static SERVER_CODE = {

@@ -15,16 +15,19 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import useTableHook from '@/hooks/useTableHook';
 import { IColumTable } from '@/types/IColumnTable';
 import { changeValueInArrayObject } from '@/utils';
-import Constants from '@/utils/Constants';
 import { ChevronDown } from 'lucide-react';
 
 type CustomTableProps = {
   columnTable: IColumTable[];
+  useHookFor: string;
 };
 
-export default function CustomTable({ columnTable }: CustomTableProps) {
+export default function CustomTable({
+  columnTable,
+  useHookFor,
+}: CustomTableProps) {
   const { columns, setColumns, data, isLoading, perPage, paginationMeta } =
-    useTableHook(Constants.SYSTEM_ROLE.USER, columnTable);
+    useTableHook(useHookFor, columnTable);
 
   if (isLoading) return <Loading />;
 
