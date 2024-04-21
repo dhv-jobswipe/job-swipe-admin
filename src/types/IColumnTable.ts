@@ -6,7 +6,7 @@ export type IColumTable = {
   cell: (_row: any) => React.JSX.Element;
 
   isFixed: boolean;
-  isChecked: boolean;
+  isChecked?: boolean;
   isHide: boolean;
   enableHiding: boolean;
 };
