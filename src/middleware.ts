@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export default async function middleware(request: NextRequest) {
   const requestPathname = request.nextUrl.pathname;
-
   const isAuthenticated = cookies().get(Constants.COOKIES.ACCESS_TOKEN);
 
   if (requestPathname === Constants.PUBLIC_ROUTES[0] && isAuthenticated) {

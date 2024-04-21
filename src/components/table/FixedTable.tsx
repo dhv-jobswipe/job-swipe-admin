@@ -25,11 +25,11 @@ export default function FixedTable({
   className,
 }: FixedTableProps) {
   return (
-    <div className={cn('h-full w-fit', className)}>
-      <Table className="border">
+    <div className={cn('h-full w-fit border-r', className)}>
+      <Table>
         <TableRow className="!bg-yellow-200">
-          <TableHead className="w-3 text-center">Checked</TableHead>
-          <TableHead className="w-3 text-center">Ordinal</TableHead>
+          <TableHead className="w-5 text-center"></TableHead>
+          <TableHead className="w-5 text-center">Ordinal</TableHead>
 
           {columns.map((col) => (
             <TableHead key={col.key}>{col.header}</TableHead>

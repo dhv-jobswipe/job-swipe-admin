@@ -65,7 +65,7 @@ export default function CustomTable({ columnTable }: CustomTableProps) {
         </DropdownMenu>
       </div>
 
-      <div className="flex flex-row items-start">
+      <div className="flex flex-row items-start overflow-hidden rounded-lg border">
         <FixedTable
           page={paginationMeta.current_page}
           perPage={perPage}
@@ -73,7 +73,7 @@ export default function CustomTable({ columnTable }: CustomTableProps) {
           data={data}
         />
 
-        <Table className="w-full flex-1 overflow-x-auto border border-l-0">
+        <Table className="w-full flex-1 overflow-x-auto border-l-0">
           <DataTableHeader
             columns={columns.filter((col) => !col.isHide && !col.isFixed)}
           />

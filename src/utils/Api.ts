@@ -6,6 +6,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import { deleteCookie } from 'cookies-next';
 import { toast } from 'sonner';
 
 function onRequest(config: InternalAxiosRequestConfig) {
@@ -27,9 +28,14 @@ function onResponseError(error: AxiosError) {
 
   if (error.response && error.response.data) {
     const err = error.response.data as IErrorResponse;
-    toast.error(err.error.message);
+    if (err.error.code === Constants.SERVER_CODE.EXPIRED_TOKEN) {
+      toast.error('Your session has expired. Please login again.');
+      deleteCookie(Constants.COOKIES.ACCESS_TOKEN);
+      deleteCookie(Constants.COOKIES.REFRESH_TOKEN);
+    } else {
+      toast.error(err.error.message);
+    }
   } else toast('Something went wrong! Please try again.');
-
   return Promise.reject(error);
 }
 
