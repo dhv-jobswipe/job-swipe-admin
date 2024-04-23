@@ -34,15 +34,16 @@ export default function useLoginHook() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    try {
-      const response = await authService.login(values.email, values.password);
-      setAppToken(response.data.access_token, response.data.refresh_token);
+    authService
+      .login(values.email, values.password)
+      .then((response) => {
+        setAppToken(response.data.access_token, response.data.refresh_token);
 
-      toast.success('Login successful');
-      router.push(Constants.NAVBAR_LINK[0].href);
-    } catch (error) {
-      toast.error("Couldn't login. Please try again.");
-    }
+        toast.success('Login successful');
+        router.push(Constants.NAVBAR_LINK[0].href);
+      })
+      .catch(() => toast.error("Couldn't login. Please try again."));
+
     setIsLoading(false);
   }
 
