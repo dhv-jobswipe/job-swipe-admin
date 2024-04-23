@@ -10,7 +10,7 @@ import { InputHTMLAttributes } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 type FormInputProps = {
-  form: UseFormReturn<any, any, undefined>;
+  form: UseFormReturn<any, any, undefined> & string;
   name: string;
   label: string;
   isLoading: boolean;
