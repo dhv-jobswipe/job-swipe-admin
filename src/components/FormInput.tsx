@@ -13,14 +13,16 @@ type FormInputProps = {
   name: string;
   label: string;
   isLoading: boolean;
-} & InputHTMLAttributes<HTMLInputElement>;
+  placeholder?: string;
+  type: InputHTMLAttributes<HTMLInputElement>['type'];
+};
 
 export default function FormInput({
   form,
   name,
   label,
-  placeholder,
   isLoading,
+  placeholder,
   type = 'button',
 }: FormInputProps) {
   return (
