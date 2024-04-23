@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function matchPattern(link: string, pattern: string) {
+export function matchPattern(link: string, pattern: string): boolean {
   if (link === pattern) return true;
 
   const regexPattern = pattern.replace(/:[^/]+/g, '([^/]+)') + '$';

@@ -13,10 +13,8 @@ type FormInputProps = {
   form: UseFormReturn<any, any, undefined>;
   name: string;
   label: string;
-  placeholder?: string;
   isLoading: boolean;
-  type: InputHTMLAttributes<HTMLInputElement>['type'];
-};
+} & InputHTMLAttributes<HTMLInputElement>;
 
 export default function FormInput({
   form,

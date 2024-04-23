@@ -13,14 +13,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { PaginationMetaProps } from '@/types/PaginationMetaProps';
+import { IPaginationMeta } from '@/types/IPaginationMeta';
 import Constants from '@/utils/Constants';
 import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 type TablePaginationProps = {
   pageSize: number;
-  paginationMeta: PaginationMetaProps;
+  paginationMeta: IPaginationMeta;
 };
 
 export default function TablePagination({

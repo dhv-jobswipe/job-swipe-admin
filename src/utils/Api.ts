@@ -17,17 +17,16 @@ function onRequest(config: InternalAxiosRequestConfig) {
   return config;
 }
 
-function onResponse(response: AxiosResponse) {
-  return response.data;
+async function onResponse(response: AxiosResponse) {
+  return Promise.resolve(response.data);
 }
 
 function onResponseError(error: AxiosError) {
   if (error.code === 'ERR_NETWORK') {
     toast.error('Network error!');
-  }
+  } else if (error.response && error.response.data) {
+    const err: IErrorResponse = error.response.data as IErrorResponse;
 
-  if (error.response && error.response.data) {
-    const err = error.response.data as IErrorResponse;
     if (err.error.code === Constants.SERVER_CODE.EXPIRED_TOKEN) {
       toast.error('Your session has expired. Please login again.');
       deleteCookie(Constants.COOKIES.ACCESS_TOKEN);
@@ -35,7 +34,7 @@ function onResponseError(error: AxiosError) {
     } else {
       toast.error(err.error.message);
     }
-  } else toast('Something went wrong! Please try again.');
+  }
   return Promise.reject(error);
 }
 

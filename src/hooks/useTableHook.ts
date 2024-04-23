@@ -2,7 +2,7 @@
 
 import { adminService } from '@/services/adminService';
 import { IColumTable } from '@/types/IColumnTable';
-import { PaginationMetaProps } from '@/types/PaginationMetaProps';
+import { IPaginationMeta } from '@/types/IPaginationMeta';
 import Constants from '@/utils/Constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -22,7 +22,7 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [paginationMeta, setPaginationMeta] = useState<PaginationMetaProps>({
+  const [paginationMeta, setPaginationMeta] = useState<IPaginationMeta>({
     current_page: 1,
     next_page: 1,
     previous_page: 1,

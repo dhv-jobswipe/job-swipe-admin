@@ -1,4 +1,4 @@
-export type PaginationMetaProps = {
+export type IPaginationMeta = {
   current_page: number;
   next_page: number;
   previous_page: number;
