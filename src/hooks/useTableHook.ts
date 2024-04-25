@@ -2,6 +2,7 @@
 
 import { adminService } from '@/services/adminService';
 import { IColumTable } from '@/types/IColumnTable';
+import { IErrorResponse } from '@/types/IErrorResponse';
 import { IPaginationMeta } from '@/types/IPaginationMeta';
 import Constants from '@/utils/Constants';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -58,8 +59,9 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
           setPaginationMeta(res.meta);
           setIsLoading(false);
         })
-        .catch(() => {
-          toast.error('Failed to fetch data');
+        .catch((err: IErrorResponse) => {
+          toast.error(err.error.message);
+          setIsLoading(false);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

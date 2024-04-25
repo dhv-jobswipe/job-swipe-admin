@@ -17,25 +17,29 @@ function onRequest(config: InternalAxiosRequestConfig) {
   return config;
 }
 
-async function onResponse(response: AxiosResponse) {
+function onResponse(response: AxiosResponse) {
   return Promise.resolve(response.data);
 }
 
 function onResponseError(error: AxiosError) {
-  if (error.code === 'ERR_NETWORK') {
-    toast.error('Network error!');
-  } else if (error.response && error.response.data) {
+  if (error.response && error.response.data) {
     const err: IErrorResponse = error.response.data as IErrorResponse;
-
     if (err.error.code === Constants.SERVER_CODE.EXPIRED_TOKEN) {
       toast.error('Your session has expired. Please login again.');
       deleteCookie(Constants.COOKIES.ACCESS_TOKEN);
       deleteCookie(Constants.COOKIES.REFRESH_TOKEN);
-    } else {
-      toast.error(err.error.message);
+
+      return Promise.reject();
     }
+
+    return Promise.reject(err);
+  } else if (error.code === 'ERR_NETWORK') {
+    toast.error('Network error! Please check your connection.');
+  } else {
+    toast.error('Something went wrong! Please try again.');
   }
-  return Promise.reject(error);
+
+  return Promise.reject();
 }
 
 const api = axios.create({

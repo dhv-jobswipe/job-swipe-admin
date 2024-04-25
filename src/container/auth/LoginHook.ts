@@ -1,6 +1,7 @@
 'use client';
 
 import { authService } from '@/services/authService';
+import { IErrorResponse } from '@/types/IErrorResponse';
 import Constants from '@/utils/Constants';
 import { setAppToken } from '@/utils/Cookies';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,14 +29,14 @@ export default function useLoginHook() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: '', password: '' },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
+    const { email, password } = values;
     authService
-      .login(values.email, values.password)
+      .login(email, password)
       .then((response) => {
         setAppToken(response.data.access_token, response.data.refresh_token);
 
@@ -43,8 +44,8 @@ export default function useLoginHook() {
         setIsLoading(false);
         router.push(Constants.NAVBAR_LINK[0].href);
       })
-      .catch(() => {
-        toast.error("Couldn't login. Please try again.");
+      .catch((err: IErrorResponse) => {
+        toast.error(err.error.message);
         setIsLoading(false);
       });
   }
