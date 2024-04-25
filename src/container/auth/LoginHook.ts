@@ -40,11 +40,13 @@ export default function useLoginHook() {
         setAppToken(response.data.access_token, response.data.refresh_token);
 
         toast.success('Login successful');
+        setIsLoading(false);
         router.push(Constants.NAVBAR_LINK[0].href);
       })
-      .catch(() => toast.error("Couldn't login. Please try again."));
-
-    setIsLoading(false);
+      .catch(() => {
+        toast.error("Couldn't login. Please try again.");
+        setIsLoading(false);
+      });
   }
 
   return { form, isLoading, onSubmit };
