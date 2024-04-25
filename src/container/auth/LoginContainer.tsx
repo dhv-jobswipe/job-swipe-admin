@@ -45,7 +45,9 @@ export default function LoginContainer() {
             </CardContent>
 
             <CardFooter className="flex items-center justify-end">
-              <Button type="submit">Sign in</Button>
+              <Button type="submit" disabled={isLoading}>
+                Sign in
+              </Button>
             </CardFooter>
           </form>
         </Form>
