@@ -19,11 +19,13 @@ import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 type TablePaginationProps = {
+  numberOfSelected: number;
   pageSize: number;
   paginationMeta: IPaginationMeta;
 };
 
 export default function TablePagination({
+  numberOfSelected,
   pageSize,
   paginationMeta,
 }: TablePaginationProps) {
@@ -31,7 +33,9 @@ export default function TablePagination({
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+      <p className="text-sm">{`${numberOfSelected.toLocaleString()} of ${paginationMeta.total_count.toLocaleString()} row(s) selected.`}</p>
+
       <Pagination className="flex-1">
         <PaginationContent>
           <PaginationItem>

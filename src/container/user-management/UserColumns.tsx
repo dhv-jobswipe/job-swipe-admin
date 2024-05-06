@@ -8,6 +8,7 @@ export const UserColumns: IColumTable[] = [
     key: 'account_id',
     header: 'ID',
     cell: (row) => <div>{row.account_id}</div>,
+    isSelectedKey: true,
     isFixed: false,
     isHide: true,
     enableHiding: true,
@@ -16,11 +17,12 @@ export const UserColumns: IColumTable[] = [
     key: 'account_status',
     header: 'Status',
     cell: (row) =>
-      row.account_status ? (
-        <div className="text-green-500">Active</div>
+      !row.deleted_at ? (
+        <div className="font-semibold text-green-500">Active</div>
       ) : (
-        <div className="text-red-500">Deactive</div>
+        <div className="font-semibold text-destructive">Deactive</div>
       ),
+    isSelectedKey: false,
     isFixed: false,
     isHide: false,
     enableHiding: false,
@@ -29,6 +31,7 @@ export const UserColumns: IColumTable[] = [
     key: 'email',
     header: 'Email',
     cell: (row) => <div>{row.email}</div>,
+    isSelectedKey: false,
     isFixed: true,
     isHide: false,
     enableHiding: false,
@@ -37,6 +40,7 @@ export const UserColumns: IColumTable[] = [
     key: 'first_name',
     header: 'First name',
     cell: (row) => <div>{row.first_name}</div>,
+    isSelectedKey: false,
     isFixed: false,
     isHide: false,
     enableHiding: true,
@@ -45,6 +49,7 @@ export const UserColumns: IColumTable[] = [
     key: 'last_name',
     header: 'Last name',
     cell: (row) => <div>{row.last_name}</div>,
+    isSelectedKey: false,
     isFixed: false,
     isHide: false,
     enableHiding: true,
@@ -53,6 +58,7 @@ export const UserColumns: IColumTable[] = [
     key: 'phone_number',
     header: 'Phone number',
     cell: (row) => <div>{row.phone_number}</div>,
+    isSelectedKey: false,
     isFixed: false,
     isHide: false,
     enableHiding: true,
@@ -61,6 +67,7 @@ export const UserColumns: IColumTable[] = [
     key: 'system_role',
     header: 'Role',
     cell: (row) => <div>{row.system_role.constant_name}</div>,
+    isSelectedKey: false,
     isFixed: false,
     isHide: true,
     enableHiding: true,
@@ -69,6 +76,7 @@ export const UserColumns: IColumTable[] = [
     key: 'created_at',
     header: 'Created',
     cell: (row) => <div>{moment(row.created_at).format('YYYY-MM-DD')}</div>,
+    isSelectedKey: false,
     isFixed: false,
     isHide: true,
     enableHiding: true,
@@ -77,6 +85,7 @@ export const UserColumns: IColumTable[] = [
     key: 'updated_at',
     header: 'Updated',
     cell: (row) => <div>{moment(row.updated_at).format('YYYY-MM-DD')}</div>,
+    isSelectedKey: false,
     isFixed: false,
     isHide: true,
     enableHiding: true,
@@ -89,8 +98,9 @@ export const UserColumns: IColumTable[] = [
         {row.deleted_at ? moment(row.deleted_at).format('YYYY-MM-DD') : ''}
       </div>
     ),
+    isSelectedKey: false,
     isFixed: false,
-    isHide: false,
+    isHide: true,
     enableHiding: true,
   },
 ];

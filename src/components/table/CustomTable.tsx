@@ -15,7 +15,7 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import useTableHook from '@/hooks/useTableHook';
 import { IColumTable } from '@/types/IColumnTable';
 import { changeValueInArrayObject } from '@/utils';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, LockKeyhole, LockKeyholeOpen } from 'lucide-react';
 
 type CustomTableProps = {
   columnTable: IColumTable[];
@@ -26,46 +26,81 @@ export default function CustomTable({
   columnTable,
   useHookFor,
 }: CustomTableProps) {
-  const { columns, setColumns, data, isLoading, perPage, paginationMeta } =
-    useTableHook(useHookFor, columnTable);
+  const {
+    columns,
+    setColumns,
+    selectedRows,
+    setSelectedRows,
+    getSelectedKey,
+    data,
+    isLoading,
+    perPage,
+    paginationMeta,
+    activateSelectedAccounts,
+    deactivateSelectedAccounts,
+  } = useTableHook(useHookFor, columnTable);
 
   if (isLoading) return <Loading />;
 
   return (
-    <div className="flex w-full flex-col space-y-4">
-      <div className="flex items-center">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              <span>Columns</span>
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
+    <div className="mt-2 flex w-full flex-col space-y-4">
+      <div className="flex flex-row items-center justify-between gap-8">
+        <div className="flex flex-row items-center justify-start gap-4">
+          <Button
+            variant="constructive"
+            className="flex flex-row items-center justify-center gap-2"
+            onClick={activateSelectedAccounts}
+            disabled={selectedRows.length === 0}
+          >
+            <LockKeyholeOpen size={20} />
+            <span>Activate</span>
+          </Button>
 
-          <DropdownMenuContent align="end">
-            {columns
-              .filter((col) => col.enableHiding)
-              .map((col) => (
-                <DropdownMenuCheckboxItem
-                  key={col.key}
-                  className="capitalize"
-                  checked={!col.isHide}
-                  onCheckedChange={(value) =>
-                    setColumns(
-                      changeValueInArrayObject(
-                        columns,
-                        col.key,
-                        'isHide',
-                        !value,
-                      ),
-                    )
-                  }
-                >
-                  {col.header}
-                </DropdownMenuCheckboxItem>
-              ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          <Button
+            variant="destructive"
+            className="flex flex-row items-center justify-center gap-2"
+            onClick={deactivateSelectedAccounts}
+            disabled={selectedRows.length === 0}
+          >
+            <LockKeyhole size={20} />
+            <span>Deactivate</span>
+          </Button>
+        </div>
+
+        <div className="flex items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                <span>Columns</span>
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align="end">
+              {columns
+                .filter((col) => col.enableHiding)
+                .map((col) => (
+                  <DropdownMenuCheckboxItem
+                    key={col.key}
+                    className="capitalize"
+                    checked={!col.isHide}
+                    onCheckedChange={(value: boolean) =>
+                      setColumns(
+                        changeValueInArrayObject(
+                          columns,
+                          col.key,
+                          'isHide',
+                          !value,
+                        ),
+                      )
+                    }
+                  >
+                    {col.header}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       <div className="flex flex-row items-start overflow-hidden rounded-lg border">
@@ -73,6 +108,9 @@ export default function CustomTable({
           page={paginationMeta.current_page}
           perPage={perPage}
           columns={columns.filter((col) => col.isFixed)}
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+          selectedKey={getSelectedKey(columns)}
           data={data}
         />
 
@@ -83,7 +121,7 @@ export default function CustomTable({
 
           <TableBody>
             {data.map((row, idx) => (
-              <TableRow key={idx} className="!bg-white odd:!bg-blue-50">
+              <TableRow key={idx} className="!bg-white odd:!bg-pink-100">
                 {columns
                   .filter((col) => !col.isHide && !col.isFixed)
                   .map((col) => (
@@ -100,7 +138,11 @@ export default function CustomTable({
         </Table>
       </div>
 
-      <TablePagination paginationMeta={paginationMeta} pageSize={perPage} />
+      <TablePagination
+        numberOfSelected={selectedRows.length}
+        paginationMeta={paginationMeta}
+        pageSize={perPage}
+      />
     </div>
   );
 }

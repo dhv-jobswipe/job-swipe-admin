@@ -31,7 +31,7 @@ export default function useLoginHook() {
     resolver: zodResolver(formSchema),
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
     const { email, password } = values;
@@ -46,6 +46,9 @@ export default function useLoginHook() {
       })
       .catch((err: IErrorResponse) => {
         toast.error(err.error.message);
+        setIsLoading(false);
+      })
+      .catch(() => {
         setIsLoading(false);
       });
   }

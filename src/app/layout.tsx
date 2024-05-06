@@ -1,3 +1,4 @@
+import Popup from '@/components/Popup';
 import { cn } from '@/utils';
 import { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         {children}
         <Toaster richColors position="top-right" />
+        <Popup />
       </body>
     </html>
   );

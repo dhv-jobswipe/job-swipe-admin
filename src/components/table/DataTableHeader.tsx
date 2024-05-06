@@ -8,9 +8,9 @@ type DataTableHeaderProps = {
 export function DataTableHeader({ columns }: DataTableHeaderProps) {
   return (
     <TableHeader>
-      <TableRow className="!bg-yellow-200">
+      <TableRow className="!bg-pink-800">
         {columns.map((col) => (
-          <TableHead key={col.key} className="min-w-28 truncate">
+          <TableHead key={col.key} className="min-w-28 truncate text-white">
             {col.header}
           </TableHead>
         ))}
