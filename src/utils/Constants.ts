@@ -7,8 +7,9 @@ export default class Constants {
   };
 
   static NAVBAR_LINK = [
-    { href: '/manage/users', label: 'User Management' },
-    { href: '/manage/companies', label: 'Company Management' },
+    { href: '/manage/users', label: 'User' },
+    { href: '/manage/companies', label: 'Company' },
+    { href: '/manage/constants', label: 'Constant' },
   ];
 
   static PAGINATION_NUMBER = [10, 20, 30];
@@ -16,6 +17,11 @@ export default class Constants {
   static SYSTEM_ROLE = {
     USER: 'user',
     COMPANY: 'company',
+    CONSTANT: 'constant',
+  };
+
+  static VALUE = {
+    TRUE: 'true',
   };
 
   static SERVER_CODE = {
