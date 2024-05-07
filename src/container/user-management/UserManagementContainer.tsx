@@ -6,11 +6,11 @@ import Constants from '@/utils/Constants';
 
 export default function UserManagementContainer() {
   return (
-    <main className="flex flex-col space-y-4">
-      <h1 className="text-xl font-semibold">Users in System</h1>
+    <main>
       <CustomTable
         columnTable={UserColumns}
         useHookFor={Constants.SYSTEM_ROLE.USER}
+        title="Users in System"
       />
     </main>
   );

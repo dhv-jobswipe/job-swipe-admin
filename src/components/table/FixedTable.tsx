@@ -31,7 +31,7 @@ export default function FixedTable({
   className,
 }: FixedTableProps) {
   return (
-    <div className={cn('h-full w-fit min-w-[20%] border-r', className)}>
+    <div className={cn('h-full w-fit min-w-[30%] border-r', className)}>
       <Table>
         <TableRow className="!bg-pink-800">
           <TableHead className="w-5 text-center"></TableHead>

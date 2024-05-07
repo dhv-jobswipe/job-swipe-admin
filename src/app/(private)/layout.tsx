@@ -36,7 +36,7 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
   return (
     <>
       <Navbar />
-      <MaxWidthWrapper className="mt-20 pb-14">{children}</MaxWidthWrapper>
+      <MaxWidthWrapper className="mt-16 pb-14 pt-2">{children}</MaxWidthWrapper>
     </>
   );
 }

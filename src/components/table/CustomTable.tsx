@@ -19,11 +19,13 @@ import { ChevronDown, LockKeyhole, LockKeyholeOpen } from 'lucide-react';
 
 type CustomTableProps = {
   columnTable: IColumTable[];
+  title: string;
   useHookFor: string;
 };
 
 export default function CustomTable({
   columnTable,
+  title,
   useHookFor,
 }: CustomTableProps) {
   const {
@@ -44,8 +46,10 @@ export default function CustomTable({
 
   return (
     <div className="mt-2 flex w-full flex-col space-y-4">
-      <div className="flex flex-row items-center justify-between gap-8">
-        <div className="flex flex-row items-center justify-start gap-4">
+      <div className="flex flex-row items-center justify-between">
+        <h1 className="text-xl font-semibold">{title}</h1>
+
+        <div className="flex flex-row items-center justify-between gap-4">
           <Button
             variant="constructive"
             className="flex flex-row items-center justify-center gap-2"
@@ -65,41 +69,41 @@ export default function CustomTable({
             <LockKeyhole size={20} />
             <span>Deactivate</span>
           </Button>
-        </div>
 
-        <div className="flex items-center">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                <span>Columns</span>
-                <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
+          <div className="flex items-center">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="ml-auto">
+                  <span>Columns</span>
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end">
-              {columns
-                .filter((col) => col.enableHiding)
-                .map((col) => (
-                  <DropdownMenuCheckboxItem
-                    key={col.key}
-                    className="capitalize"
-                    checked={!col.isHide}
-                    onCheckedChange={(value: boolean) =>
-                      setColumns(
-                        changeValueInArrayObject(
-                          columns,
-                          col.key,
-                          'isHide',
-                          !value,
-                        ),
-                      )
-                    }
-                  >
-                    {col.header}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <DropdownMenuContent align="end">
+                {columns
+                  .filter((col) => col.enableHiding)
+                  .map((col) => (
+                    <DropdownMenuCheckboxItem
+                      key={col.key}
+                      className="capitalize"
+                      checked={!col.isHide}
+                      onCheckedChange={(value: boolean) =>
+                        setColumns(
+                          changeValueInArrayObject(
+                            columns,
+                            col.key,
+                            'isHide',
+                            !value,
+                          ),
+                        )
+                      }
+                    >
+                      {col.header}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
 

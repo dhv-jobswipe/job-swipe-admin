@@ -9,8 +9,7 @@ export const constantService = {
     return api.get('admin', {
       params: {
         type: Constants.SYSTEM_ROLE.CONSTANT,
-        constant_type: prefix,
-        is_prefix: Constants.VALUE.TRUE,
+        constant_type_prefix: prefix,
       },
     });
   },
