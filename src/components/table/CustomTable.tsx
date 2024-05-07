@@ -42,7 +42,12 @@ export default function CustomTable({
     deactivateSelectedAccounts,
   } = useTableHook(useHookFor, columnTable);
 
-  if (isLoading) return <Loading />;
+  if (isLoading)
+    return (
+      <div className="p-10">
+        <Loading />
+      </div>
+    );
 
   return (
     <div className="mt-2 flex w-full flex-col space-y-4">
