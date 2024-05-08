@@ -1,63 +1,54 @@
-import { constantService } from '@/services/constantService';
-import { IErrorResponse } from '@/types/IErrorResponse';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+'use client';
 
-type IConstantPrefix = { value: string; prefix: string };
-
-type IConstant = {
-  constant_id: string;
-  constant_type: string;
-  constant_name: string;
-};
+import { useConstantStore } from '@/store/constantStore';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function useConstantManagementHook() {
-  const tableHeaders = ['ID', 'Type', 'Name'];
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [prefixConstants, setPrefixConstants] = useState<IConstantPrefix[]>([]);
-  const [selectedPrefix, setSelectedPrefix] = useState<string>('');
-  const [constants, setConstants] = useState<IConstant[]>([]);
+  const tableHeaders = ['ID', 'Type', 'Name'];
+  const {
+    constantPrefixes,
+    constantsByPrefix,
+    getConstantPrefix,
+    getConstantByPrefix,
+  } = useConstantStore((state) => state);
+
+  const selectedPrefix = searchParams.get('prefix') || '';
+  function setSelectedPrefix(value: string) {
+    router.replace(pathname + `?prefix=${value}`);
+  }
+
+  function createConstantPath() {
+    return pathname + `/create?prefix=${selectedPrefix}`;
+  }
 
   useEffect(() => {
-    setIsLoading(true);
-    constantService
-      .getConstantPrefix()
-      .then((res: any) => {
-        const constantList = res.data as IConstantPrefix[];
-        setPrefixConstants(constantList);
-        setSelectedPrefix(constantList[0].value);
-        setIsLoading(false);
-      })
-      .catch((err: IErrorResponse) => {
-        toast.error(err.error.message);
-        setIsLoading(false);
-      });
+    getConstantPrefix();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (!selectedPrefix) return;
+    if (constantPrefixes.length === 0) return;
+    if (!selectedPrefix) setSelectedPrefix(constantPrefixes[0].value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [constantPrefixes]);
 
-    setIsLoading(true);
-    constantService
-      .getConstantByPrefix(selectedPrefix)
-      .then((res: any) => {
-        const constantList = res.data as IConstant[];
-        setConstants(constantList);
-        setIsLoading(false);
-      })
-      .catch((err: IErrorResponse) => {
-        toast.error(err.error.message);
-        setIsLoading(false);
-      });
+  useEffect(() => {
+    if (!selectedPrefix) return;
+    getConstantByPrefix(selectedPrefix);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPrefix]);
 
   return {
-    isLoading,
     tableHeaders,
-    prefixConstants,
+    constantPrefixes,
+    constantsByPrefix,
     selectedPrefix,
     setSelectedPrefix,
-    constants,
+    createConstantPath,
   };
 }

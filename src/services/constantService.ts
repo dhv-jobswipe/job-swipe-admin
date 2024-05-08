@@ -13,4 +13,7 @@ export const constantService = {
       },
     });
   },
+  createConstant(constant_prefix: string, constant_name: string, note: string) {
+    return api.post('admin/constant', { constant_prefix, constant_name, note });
+  },
 };

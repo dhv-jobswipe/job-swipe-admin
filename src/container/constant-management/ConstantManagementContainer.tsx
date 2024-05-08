@@ -17,15 +17,17 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import useConstantManagementHook from '@/container/constant-management/ConstantManagement.hook';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Plus } from 'lucide-react';
+import Link from 'next/link';
 
 export default function ConstantManagementContainer() {
   const {
     tableHeaders,
-    prefixConstants,
+    constantPrefixes,
+    constantsByPrefix,
     selectedPrefix,
     setSelectedPrefix,
-    constants,
+    createConstantPath,
   } = useConstantManagementHook();
 
   return (
@@ -33,41 +35,49 @@ export default function ConstantManagementContainer() {
       <div className="flex flex-row items-center justify-between">
         <h1 className="text-xl font-semibold">Constants in System</h1>
 
-        <div className="flex flex-row items-center">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto capitalize">
-                {selectedPrefix ? (
-                  <span>
-                    {prefixConstants
-                      .find((item) => item.value === selectedPrefix)
-                      ?.prefix.split('_')
-                      .join(' ')}
-                  </span>
-                ) : (
-                  <span>Type</span>
-                )}
-                <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
+        <div className="flex flex-row items-center gap-4">
+          <Button size={'icon'} variant={'constructive'}>
+            <Link href={createConstantPath()}>
+              <Plus />
+            </Link>
+          </Button>
 
-            <DropdownMenuContent align="end">
-              <DropdownMenuRadioGroup
-                value={selectedPrefix}
-                onValueChange={setSelectedPrefix}
-              >
-                {prefixConstants.map((item) => (
-                  <DropdownMenuRadioItem
-                    key={item.value}
-                    value={item.value}
-                    className="capitalize"
-                  >
-                    {item.prefix.split('_').join(' ')}
-                  </DropdownMenuRadioItem>
-                ))}
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex flex-row items-center">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="ml-auto capitalize">
+                  {selectedPrefix ? (
+                    <span>
+                      {constantPrefixes
+                        .find((item) => item.value === selectedPrefix)
+                        ?.prefix.split('_')
+                        .join(' ')}
+                    </span>
+                  ) : (
+                    <span>Type</span>
+                  )}
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align="end">
+                <DropdownMenuRadioGroup
+                  value={selectedPrefix}
+                  onValueChange={setSelectedPrefix}
+                >
+                  {constantPrefixes.map((item) => (
+                    <DropdownMenuRadioItem
+                      key={item.value}
+                      value={item.value}
+                      className="capitalize"
+                    >
+                      {item.prefix.split('_').join(' ')}
+                    </DropdownMenuRadioItem>
+                  ))}
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
 
@@ -87,7 +97,7 @@ export default function ConstantManagementContainer() {
             </TableHeader>
 
             <TableBody>
-              {constants.map((constant, idx) => {
+              {constantsByPrefix.map((constant, idx) => {
                 return (
                   <TableRow key={idx} className="!bg-white odd:!bg-pink-100">
                     <TableCell>{constant.constant_id}</TableCell>

@@ -1,6 +1,6 @@
 'use client';
 
-import FormInput from '@/components/FormInput';
+import FormInput from '@/components/form/FormInput';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -31,6 +31,7 @@ export default function LoginContainer() {
                 label="Email"
                 type="text"
                 placeholder="Email"
+                required={true}
                 isLoading={isLoading}
               />
 
@@ -40,6 +41,7 @@ export default function LoginContainer() {
                 label="Password"
                 type="password"
                 placeholder="Password"
+                required={true}
                 isLoading={isLoading}
               />
             </CardContent>

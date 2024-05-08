@@ -24,6 +24,10 @@ export default class Constants {
     TRUE: 'true',
   };
 
+  static PREFIX = {
+    LANGUAGE: '06',
+  };
+
   static SERVER_CODE = {
     EXPIRED_TOKEN: 'ERR_TOK0102',
   };

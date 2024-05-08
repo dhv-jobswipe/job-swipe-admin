@@ -45,15 +45,15 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
       `Are you sure you want to activate ${selectedRows.length.toLocaleString()} account?`,
       () => {
         closePopup();
+        setIsLoading(true);
         adminService
           .activate(selectedRows)
           .then(() => {
             getRows(page, perPage);
             setSelectedRows([]);
           })
-          .catch((err: IErrorResponse) => {
-            toast.error(err.error.message);
-          });
+          .catch((err: IErrorResponse) => toast.error(err.error.message))
+          .finally(() => setIsLoading(false));
       },
     );
   }
@@ -63,15 +63,15 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
       `Are you sure you want to deactivate ${selectedRows.length.toLocaleString()} account?`,
       () => {
         closePopup();
+        setIsLoading(true);
         adminService
           .deactivate(selectedRows)
           .then(() => {
             getRows(page, perPage);
             setSelectedRows([]);
           })
-          .catch((err: IErrorResponse) => {
-            toast.error(err.error.message);
-          });
+          .catch((err: IErrorResponse) => toast.error(err.error.message))
+          .finally(() => setIsLoading(false));
       },
     );
   }
@@ -90,12 +90,9 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
         }
         setData(res.data);
         setPaginationMeta(res.meta);
-        setIsLoading(false);
       })
-      .catch((err: IErrorResponse) => {
-        toast.error(err.error.message);
-        setIsLoading(false);
-      });
+      .catch((err: IErrorResponse) => toast.error(err.error.message))
+      .finally(() => setIsLoading(false));
   }
 
   useEffect(() => {

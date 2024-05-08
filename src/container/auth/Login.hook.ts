@@ -39,18 +39,11 @@ export default function useLoginHook() {
       .login(email, password)
       .then((response) => {
         setAppToken(response.data.access_token, response.data.refresh_token);
-
         toast.success('Login successful');
-        setIsLoading(false);
         router.push(Constants.NAVBAR_LINK[0].href);
       })
-      .catch((err: IErrorResponse) => {
-        toast.error(err.error.message);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+      .catch((err: IErrorResponse) => toast.error(err.error.message))
+      .finally(() => setIsLoading(false));
   }
 
   return { form, isLoading, onSubmit };
