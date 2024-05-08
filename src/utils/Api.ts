@@ -21,17 +21,15 @@ function onResponse(response: AxiosResponse) {
   return Promise.resolve(response.data);
 }
 
-function onResponseError(error: AxiosError) {
+async function onResponseError(error: AxiosError) {
   if (error.response && error.response.data) {
     const err: IErrorResponse = error.response.data as IErrorResponse;
     if (err.error.code === Constants.SERVER_CODE.EXPIRED_TOKEN) {
       toast.error('Your session has expired. Please login again.');
       deleteCookie(Constants.COOKIES.ACCESS_TOKEN);
       deleteCookie(Constants.COOKIES.REFRESH_TOKEN);
-
       return Promise.reject();
     }
-
     return Promise.reject(err);
   } else if (error.code === 'ERR_NETWORK') {
     toast.error('Network error! Please check your connection.');

@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +18,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import useConstantManagementHook from '@/container/constant-management/ConstantManagement.hook';
-import { ChevronDown, Plus } from 'lucide-react';
+import { ChevronDown, Minus, Plus } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ConstantManagementContainer() {
@@ -26,8 +27,11 @@ export default function ConstantManagementContainer() {
     constantPrefixes,
     constantsByPrefix,
     selectedPrefix,
+    selectedConstants,
+    setSelectedConstants,
     setSelectedPrefix,
     createConstantPath,
+    deleteConstants,
   } = useConstantManagementHook();
 
   return (
@@ -36,11 +40,22 @@ export default function ConstantManagementContainer() {
         <h1 className="text-xl font-semibold">Constants in System</h1>
 
         <div className="flex flex-row items-center gap-4">
-          <Button size={'icon'} variant={'constructive'}>
-            <Link href={createConstantPath()}>
-              <Plus />
-            </Link>
-          </Button>
+          <div className="flex flex-row gap-4">
+            <Button size={'icon'} variant={'constructive'}>
+              <Link href={createConstantPath()}>
+                <Plus />
+              </Link>
+            </Button>
+
+            <Button
+              size={'icon'}
+              variant={'destructive'}
+              disabled={selectedConstants.length === 0}
+              onClick={deleteConstants}
+            >
+              <Minus />
+            </Button>
+          </div>
 
           <div className="flex flex-row items-center">
             <DropdownMenu>
@@ -86,6 +101,8 @@ export default function ConstantManagementContainer() {
           <Table className="w-full">
             <TableHeader>
               <TableRow className="!bg-pink-800">
+                <TableHead></TableHead>
+
                 {tableHeaders.map((header, id) => {
                   return (
                     <TableHead key={id} className="truncate text-white">
@@ -100,9 +117,42 @@ export default function ConstantManagementContainer() {
               {constantsByPrefix.map((constant, idx) => {
                 return (
                   <TableRow key={idx} className="!bg-white odd:!bg-pink-100">
-                    <TableCell>{constant.constant_id}</TableCell>
-                    <TableCell>{constant.constant_type}</TableCell>
-                    <TableCell>{constant.constant_name}</TableCell>
+                    <TableCell className="h-14">
+                      <Checkbox
+                        checked={selectedConstants.includes(
+                          constant.constant_id,
+                        )}
+                        onCheckedChange={(checked) => {
+                          if (!checked) {
+                            setSelectedConstants(
+                              selectedConstants.filter(
+                                (item) => item !== constant.constant_id,
+                              ),
+                            );
+                          } else {
+                            setSelectedConstants([
+                              ...selectedConstants,
+                              constant.constant_id,
+                            ]);
+                          }
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell className="h-14 w-[10%]">
+                      {constant.constant_type}
+                    </TableCell>
+                    <TableCell className="h-14 w-[45%]">
+                      {constant.constant_name}
+                    </TableCell>
+                    <TableCell className="h-14 w-full">
+                      {constant.note ? (
+                        <pre className="font-sans text-xs">
+                          {JSON.stringify(constant.note, null, 2)}
+                        </pre>
+                      ) : (
+                        ''
+                      )}
+                    </TableCell>
                   </TableRow>
                 );
               })}

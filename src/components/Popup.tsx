@@ -12,9 +12,9 @@ export default function Popup() {
   return (
     <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm animate-in fade-in-0">
       <div className="fixed left-[50%] top-[50%] z-[100] grid max-h-[92vh] w-max translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-xl bg-background duration-200 animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%] sm:rounded-lg">
-        <div className="flex w-[450px] flex-col px-10 py-8">
+        <div className="flex w-[500px] flex-col px-10 py-8">
           <div className="flex flex-col items-center justify-center gap-4">
-            <CircleAlert size={60} color="#ef4444" strokeWidth={1.75} />
+            <CircleAlert size={100} color="#ef4444" />
 
             <p className="text-2xl font-semibold text-[#1c2e63]">
               Are you sure?

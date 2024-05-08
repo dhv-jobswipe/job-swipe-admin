@@ -58,7 +58,6 @@ export default function FixedTable({
                             (selectedRow) => selectedRow !== row[selectedKey],
                           ),
                         );
-                        return;
                       } else {
                         setSelectedRows([...selectedRows, row[selectedKey]]);
                       }
