@@ -14,9 +14,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { IPaginationMeta } from '@/types/IPaginationMeta';
+import updateSearchParams from '@/utils';
 import Constants from '@/utils/Constants';
 import { ChevronsLeft, ChevronsRight } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type TablePaginationProps = {
   numberOfSelected: number;
@@ -30,7 +31,6 @@ export default function TablePagination({
   paginationMeta,
 }: TablePaginationProps) {
   const router = useRouter();
-  const pathname = usePathname();
 
   return (
     <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -40,7 +40,8 @@ export default function TablePagination({
         <PaginationContent>
           <PaginationItem>
             <PaginationLink
-              href={pathname + `?page=1&per_page=${pageSize}`}
+              // href={pathname + `?page=1&per_page=${pageSize}`}
+              href={updateSearchParams({ page: 1, per_page: pageSize })}
               isActive={paginationMeta.current_page !== 1}
             >
               <ChevronsLeft className="h-4 w-4" />
@@ -49,20 +50,20 @@ export default function TablePagination({
 
           <PaginationItem>
             <PaginationPrevious
-              href={
-                pathname +
-                `?page=${paginationMeta.previous_page}&per_page=${pageSize}`
-              }
+              href={updateSearchParams({
+                page: paginationMeta.previous_page,
+                per_page: pageSize,
+              })}
               isActive={paginationMeta.current_page !== 1}
             />
           </PaginationItem>
 
           <PaginationItem>
             <PaginationNext
-              href={
-                pathname +
-                `?page=${paginationMeta.next_page}&per_page=${pageSize}`
-              }
+              href={updateSearchParams({
+                page: paginationMeta.next_page,
+                per_page: pageSize,
+              })}
               isActive={
                 paginationMeta.current_page !== paginationMeta.total_page
               }
@@ -71,10 +72,10 @@ export default function TablePagination({
 
           <PaginationItem>
             <PaginationLink
-              href={
-                pathname +
-                `?page=${paginationMeta.total_page}&per_page=${pageSize}`
-              }
+              href={updateSearchParams({
+                page: paginationMeta.total_page,
+                per_page: pageSize,
+              })}
               isActive={
                 paginationMeta.current_page !== paginationMeta.total_page
               }
@@ -89,9 +90,9 @@ export default function TablePagination({
         <p className="text-sm font-medium">Rows per page</p>
         <Select
           value={`${pageSize}`}
-          onValueChange={(value) => {
-            router.replace(pathname + `?page=1&per_page=${value}`);
-          }}
+          onValueChange={(value) =>
+            router.replace(updateSearchParams({ page: 1, per_page: value }))
+          }
         >
           <SelectTrigger className="h-8 w-[70px]">
             <SelectValue placeholder={pageSize} />

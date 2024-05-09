@@ -30,3 +30,16 @@ export function changeValueInArrayObject(
   }
   return newArrayObject;
 }
+
+export default function updateSearchParams(params: Record<string, any>) {
+  const searchParams = new URLSearchParams(window.location.search);
+  const keys = Object.keys(params).sort();
+  for (const key of keys) {
+    if (typeof params[key] === 'undefined' || !params[key]) {
+      searchParams.delete(key);
+    } else {
+      searchParams.set(key, String(params[key]));
+    }
+  }
+  return window.location.href.split('?')[0] + '?' + searchParams.toString();
+}

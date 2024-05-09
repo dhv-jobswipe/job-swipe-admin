@@ -5,22 +5,23 @@ import { usePopupStore } from '@/store/popupStore';
 import { IColumTable } from '@/types/IColumnTable';
 import { IErrorResponse } from '@/types/IErrorResponse';
 import { IPaginationMeta } from '@/types/IPaginationMeta';
+import updateSearchParams from '@/utils';
 import Constants from '@/utils/Constants';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function useTableHook(role: string, columnTable: IColumTable[]) {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const { openPopup, closePopup } = usePopupStore();
 
   const page = Number(searchParams.get('page') || 1);
   const perPage = Number(
     searchParams.get('per_page') || Constants.PAGINATION_NUMBER[0],
   );
+  const sortBy = searchParams.get('sort_by') || '';
+  const orderBy = searchParams.get('order_by') || '';
 
   const [columns, setColumns] = useState<IColumTable[]>(columnTable);
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -77,15 +78,12 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
   }
 
   function getRows(paginatePage: number, paginatePerPage: number) {
+    setIsLoading(true);
     adminService
-      .get(role, paginatePage, paginatePerPage)
+      .get(role, paginatePage, paginatePerPage, sortBy, orderBy)
       .then((res: any) => {
         if (res.meta.current_page > res.meta.total_page) {
-          router.replace(
-            pathname +
-              `?page=${res.meta.total_page}&per_page=${paginatePerPage}`,
-          );
-
+          router.replace(updateSearchParams({ page: res.meta.total_page }));
           return;
         }
         setData(res.data);
@@ -105,24 +103,24 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
 
     if (page !== paginatePage || perPage !== paginatePerPage) {
       router.replace(
-        pathname + `?page=${paginatePage}&per_page=${paginatePerPage}`,
+        updateSearchParams({ page: paginatePage, per_page: paginatePerPage }),
       );
     } else {
       getRows(paginatePage, paginatePerPage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, perPage, role]);
+  }, [page, perPage, role, sortBy, orderBy]);
 
   return {
     columns,
-    setColumns,
     selectedRows,
-    setSelectedRows,
-    getSelectedKey,
     data,
     isLoading,
     perPage,
     paginationMeta,
+    setColumns,
+    setSelectedRows,
+    getSelectedKey,
     activateSelectedAccounts,
     deactivateSelectedAccounts,
   };

@@ -1,9 +1,15 @@
 import api from '@/utils/Api';
 
 export const adminService = {
-  get(type: string, page: number, paging: number, sort_by?: string) {
+  get(
+    type: string,
+    page: number,
+    paging: number,
+    sort_by: string,
+    order: string,
+  ) {
     return api.get('/admin', {
-      params: { type, page, paging, sort_by, order: 'asc' },
+      params: { type, page, paging, sort_by, order },
     });
   },
   deactivate(ids: string[]) {

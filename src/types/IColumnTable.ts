@@ -8,5 +8,6 @@ export type IColumTable = {
   isSelectedKey: boolean;
   isFixed: boolean;
   isHide: boolean;
+  enableSort: boolean;
   enableHiding: boolean;
 };

@@ -30,14 +30,14 @@ export default function CustomTable({
 }: CustomTableProps) {
   const {
     columns,
-    setColumns,
     selectedRows,
-    setSelectedRows,
-    getSelectedKey,
     data,
     isLoading,
     perPage,
     paginationMeta,
+    setColumns,
+    setSelectedRows,
+    getSelectedKey,
     activateSelectedAccounts,
     deactivateSelectedAccounts,
   } = useTableHook(useHookFor, columnTable);

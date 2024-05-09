@@ -12,6 +12,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: true,
     enableHiding: true,
+    enableSort: false,
   },
   {
     key: 'account_status',
@@ -26,6 +27,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: false,
     enableHiding: false,
+    enableSort: false,
   },
   {
     key: 'email',
@@ -35,6 +37,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: true,
     isHide: false,
     enableHiding: false,
+    enableSort: true,
   },
   {
     key: 'first_name',
@@ -44,6 +47,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: false,
     enableHiding: true,
+    enableSort: true,
   },
   {
     key: 'last_name',
@@ -53,6 +57,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: false,
     enableHiding: true,
+    enableSort: true,
   },
   {
     key: 'phone_number',
@@ -62,6 +67,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: false,
     enableHiding: true,
+    enableSort: false,
   },
   {
     key: 'system_role',
@@ -71,6 +77,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: true,
     enableHiding: true,
+    enableSort: false,
   },
   {
     key: 'created_at',
@@ -80,6 +87,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: true,
     enableHiding: true,
+    enableSort: true,
   },
   {
     key: 'updated_at',
@@ -89,6 +97,7 @@ export const UserColumns: IColumTable[] = [
     isFixed: false,
     isHide: true,
     enableHiding: true,
+    enableSort: true,
   },
   {
     key: 'deleted_at',
@@ -100,7 +109,8 @@ export const UserColumns: IColumTable[] = [
     ),
     isSelectedKey: false,
     isFixed: false,
-    isHide: true,
+    isHide: false,
     enableHiding: true,
+    enableSort: true,
   },
 ];
