@@ -37,7 +37,7 @@ async function onResponseError(error: AxiosError) {
     toast.error('Something went wrong! Please try again.');
   }
 
-  return Promise.reject();
+  return Promise.reject(error);
 }
 
 const api = axios.create({

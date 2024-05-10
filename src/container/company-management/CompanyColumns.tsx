@@ -109,7 +109,7 @@ export const CompanyColumns: IColumTable[] = [
     ),
     isSelectedKey: false,
     isFixed: false,
-    isHide: true,
+    isHide: false,
     enableHiding: true,
     enableSort: true,
   },

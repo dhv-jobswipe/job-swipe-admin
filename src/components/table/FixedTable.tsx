@@ -35,7 +35,7 @@ export default function FixedTable({
       <Table>
         <TableRow className="!bg-pink-800">
           <TableHead className="w-5 text-center"></TableHead>
-          <TableHead className="w-5 text-center text-white">Ordinal</TableHead>
+          <TableHead className="w-5 text-center text-white"></TableHead>
 
           {columns.map((col) => (
             <TableHead key={col.key} className="text-white">

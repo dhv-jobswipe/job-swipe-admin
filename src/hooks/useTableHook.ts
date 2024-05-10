@@ -100,10 +100,14 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
     let paginatePerPage = !Constants.PAGINATION_NUMBER.includes(perPage)
       ? Constants.PAGINATION_NUMBER[0]
       : perPage;
-
     if (page !== paginatePage || perPage !== paginatePerPage) {
       router.replace(
-        updateSearchParams({ page: paginatePage, per_page: paginatePerPage }),
+        updateSearchParams({
+          page: paginatePage,
+          per_page: paginatePerPage,
+          sort_by: sortBy,
+          order_by: orderBy,
+        }),
       );
     } else {
       getRows(paginatePage, paginatePerPage);
