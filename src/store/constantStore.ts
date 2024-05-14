@@ -1,3 +1,5 @@
+// git commit -m "PBL-623 delete constant"
+
 import { constantService } from '@/services/constantService';
 import { IConstant } from '@/types/IConstant';
 import { IConstantPrefix } from '@/types/IConstantPrefix';
