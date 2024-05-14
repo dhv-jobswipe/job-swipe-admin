@@ -1,3 +1,5 @@
+// git commit -m "PBL-614 all companies"
+
 'use client';
 
 import { IColumTable } from '@/types/IColumnTable';
