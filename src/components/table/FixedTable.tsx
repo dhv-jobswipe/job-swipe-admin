@@ -2,6 +2,7 @@
 // git commit -m "PBL-615 hide columns of user table"
 // git commit -m "PBL-616 hide columns of company table"
 // git commit -m "PBL-617 show columns of company table"
+// git commit -m "PBL-618 hide columns of company table"
 
 import { Checkbox } from '@/components/ui/checkbox';
 import {
