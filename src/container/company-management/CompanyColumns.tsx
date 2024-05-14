@@ -2,6 +2,7 @@
 // git commit -m "PBL-609 deactivate account"
 // git commit -m "PBL-610 deactivate account"
 // git commit -m "PBL-611 activate account"
+// git commit -m "PBL-612 activate account"
 
 'use client';
 
