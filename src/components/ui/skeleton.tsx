@@ -1,4 +1,5 @@
 // git commit -m "PBL-615 hide columns of user table"
+// git commit -m "PBL-616 hide columns of company table"
 
 import { cn } from '@/utils/index';
 import { HTMLAttributes } from 'react';
