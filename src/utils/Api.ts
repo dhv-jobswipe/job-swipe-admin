@@ -1,3 +1,5 @@
+// git commit -m "PBL-848 set up base"
+
 import { IErrorResponse } from '@/types/IErrorResponse';
 import Constants from '@/utils/Constants';
 import { getAppCookie } from '@/utils/Cookies';

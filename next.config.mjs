@@ -1,3 +1,5 @@
+// git commit -m "PBL-848 set up base"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
