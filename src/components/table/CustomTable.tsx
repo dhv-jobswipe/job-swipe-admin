@@ -1,4 +1,5 @@
 // git commit -m "PBL-613 all users"
+// git commit -m "PBL-615 hide columns of user table"
 
 'use client';
 

@@ -1,3 +1,5 @@
+// git commit -m "PBL-615 hide columns of user table"
+
 import { cn } from '@/utils/index';
 import { HTMLAttributes } from 'react';
 

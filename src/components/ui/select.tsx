@@ -1,3 +1,5 @@
+// git commit -m "PBL-615 hide columns of user table"
+
 'use client';
 
 import * as React from 'react';
