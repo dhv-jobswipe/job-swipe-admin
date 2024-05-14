@@ -1,4 +1,5 @@
 // git commit -m "PBL-619 constant of types"
+// git commit -m "PBL-621 add constant"
 
 import api from '@/utils/Api';
 import Constants from '@/utils/Constants';
