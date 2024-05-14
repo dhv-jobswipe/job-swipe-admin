@@ -1,4 +1,5 @@
 // git commit -m "PBL-848 set up base"
+// git commit -m "PBL-619 constant of types"
 
 export default class Constants {
   static PUBLIC_ROUTES = ['/'];
