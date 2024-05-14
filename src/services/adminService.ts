@@ -1,4 +1,5 @@
 // git commit -m "PBL-609 deactivate account"
+// git commit -m "PBL-610 deactivate account"
 
 import api from '@/utils/Api';
 

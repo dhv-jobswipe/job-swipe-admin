@@ -1,5 +1,6 @@
 // git commit -m "PBL-613 all users"
 // git commit -m "PBL-609 deactivate account"
+// git commit -m "PBL-610 deactivate account"
 
 'use client';
 
