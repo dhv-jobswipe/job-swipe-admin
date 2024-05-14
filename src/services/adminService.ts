@@ -1,3 +1,5 @@
+// git commit -m "PBL-609 deactivate account"
+
 import api from '@/utils/Api';
 
 export const adminService = {
