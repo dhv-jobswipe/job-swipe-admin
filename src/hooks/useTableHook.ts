@@ -43,7 +43,7 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
 
   function activateSelectedAccounts() {
     openPopup(
-      `Are you sure you want to activate ${selectedRows.length.toLocaleString()} account?`,
+      `Are you sure you want to activate ${selectedRows.length.toLocaleString()} account(s)?`,
       () => {
         closePopup();
         setIsLoading(true);
@@ -61,7 +61,7 @@ export default function useTableHook(role: string, columnTable: IColumTable[]) {
 
   function deactivateSelectedAccounts() {
     openPopup(
-      `Are you sure you want to deactivate ${selectedRows.length.toLocaleString()} account?`,
+      `Are you sure you want to deactivate ${selectedRows.length.toLocaleString()} account(s)?`,
       () => {
         closePopup();
         setIsLoading(true);

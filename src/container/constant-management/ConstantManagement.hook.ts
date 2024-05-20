@@ -36,7 +36,7 @@ export default function useConstantManagementHook() {
 
   function deleteConstants() {
     openPopup(
-      `Are you sure you want to delete ${selectedConstants.length.toLocaleString()} account?`,
+      `Are you sure you want to delete ${selectedConstants.length.toLocaleString()} constant(s)?`,
       () => {
         closePopup();
         constantService
