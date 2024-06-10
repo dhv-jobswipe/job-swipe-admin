@@ -16,6 +16,7 @@ import useTableHook from '@/hooks/useTableHook';
 import { IColumTable } from '@/types/IColumnTable';
 import { changeValueInArrayObject } from '@/utils';
 import { ChevronDown, LockKeyhole, LockKeyholeOpen } from 'lucide-react';
+import Link from 'next/link';
 
 type CustomTableProps = {
   columnTable: IColumTable[];
@@ -136,11 +137,19 @@ export default function CustomTable({
                   .map((col) => (
                     <TableCell
                       key={col.key}
-                      className="h-14 min-w-28 text-nowrap"
+                      className="h-20 min-w-28 text-nowrap"
                     >
                       {col.cell(row)}
                     </TableCell>
                   ))}
+
+                <TableCell className="h-20 min-w-28">
+                  <Link href={`/manage/${row['account_id']}`}>
+                    <Button size="sm" variant="link" className="text-blue-500">
+                      Detail
+                    </Button>
+                  </Link>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

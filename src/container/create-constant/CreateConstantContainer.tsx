@@ -6,13 +6,21 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import useCreateConstant from '@/container/create-constant/CreateConstant.hook';
 import Constants from '@/utils/Constants';
+import { Undo2 } from 'lucide-react';
 
 export default function CreateConstantContainer() {
-  const { form, isLoading, constantPrefixes, onSubmit } = useCreateConstant();
+  const { router, form, isLoading, constantPrefixes, onSubmit } =
+    useCreateConstant();
 
   return (
     <main className="flex flex-col gap-6">
-      <h1 className="text-xl font-semibold">Create new constant</h1>
+      <div className="flex flex-row items-center justify-between">
+        <h1 className="text-xl font-semibold">Create new constant</h1>
+
+        <Button size="icon" onClick={() => router.back()}>
+          <Undo2 />
+        </Button>
+      </div>
 
       <div className="mx-auto w-full max-w-[600px]">
         <Form {...form}>

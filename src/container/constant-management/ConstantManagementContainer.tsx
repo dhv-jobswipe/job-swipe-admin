@@ -41,15 +41,15 @@ export default function ConstantManagementContainer() {
 
         <div className="flex flex-row items-center gap-4">
           <div className="flex flex-row gap-4">
-            <Button size={'icon'} variant={'constructive'}>
+            <Button size="icon" variant="constructive">
               <Link href={createConstantPath()}>
                 <Plus />
               </Link>
             </Button>
 
             <Button
-              size={'icon'}
-              variant={'destructive'}
+              size="icon"
+              variant="destructive"
               disabled={selectedConstants.length === 0}
               onClick={deleteConstants}
             >

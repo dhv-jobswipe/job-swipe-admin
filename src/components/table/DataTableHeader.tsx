@@ -61,6 +61,10 @@ export function DataTableHeader({ columns }: DataTableHeaderProps) {
             )}
           </TableHead>
         ))}
+
+        <TableHead className="min-w-28 truncate text-white">
+          Match detail
+        </TableHead>
       </TableRow>
     </TableHeader>
   );

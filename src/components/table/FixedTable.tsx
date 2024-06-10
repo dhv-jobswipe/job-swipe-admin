@@ -48,7 +48,7 @@ export default function FixedTable({
           {data.map((row, idx) => {
             return (
               <TableRow key={idx} className="!bg-white odd:!bg-pink-100">
-                <TableCell className="h-14 text-center">
+                <TableCell className="h-20 text-center">
                   <Checkbox
                     checked={selectedRows.includes(row[selectedKey])}
                     onCheckedChange={(checked) => {
@@ -65,14 +65,14 @@ export default function FixedTable({
                   />
                 </TableCell>
 
-                <TableCell className="h-14 text-center">
+                <TableCell className="h-20 text-center">
                   {((page - 1) * perPage + idx + 1).toLocaleString()}
                 </TableCell>
 
                 {columns
                   .filter((col) => !col.isHide)
                   .map((col) => (
-                    <TableCell key={col.key} className="h-14 text-nowrap">
+                    <TableCell key={col.key} className="h-20 text-nowrap">
                       {col.cell(row)}
                     </TableCell>
                   ))}

@@ -51,5 +51,5 @@ export default function useCreateConstant() {
       .finally(() => setIsLoading(false));
   }
 
-  return { form, isLoading, constantPrefixes, onSubmit };
+  return { router, form, isLoading, constantPrefixes, onSubmit };
 }

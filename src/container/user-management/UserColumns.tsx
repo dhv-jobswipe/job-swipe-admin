@@ -109,7 +109,7 @@ export const UserColumns: IColumTable[] = [
     ),
     isSelectedKey: false,
     isFixed: false,
-    isHide: false,
+    isHide: true,
     enableHiding: true,
     enableSort: true,
   },
